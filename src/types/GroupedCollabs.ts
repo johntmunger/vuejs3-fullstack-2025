@@ -1,5 +1,5 @@
 import type { Collabs } from '@/utils/supaQueries'
 
 export type GroupedCollabs = {
-  [key: string | number]: Collabs
+  [key: string]: Collabs
 }
