@@ -1,4 +1,4 @@
-import { projectQuery, projectsQuery } from "@/utils/supaQueries";
+import { projectQuery, projectsQuery, updateProjectQuery } from "@/utils/supaQueries";
 import type { Project, Projects } from '@/utils/supaQueries';
 import { defineStore } from "pinia";
 import { useErrorStore } from "../error";
@@ -74,10 +74,20 @@ export const useProjectsStore = defineStore('projects-store', () => {
     })
   };
 
+  const updateProject = async () => {
+    if(!project.value) return
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const{tasks, id, ...projectProperites} = project.value
+    
+    await updateProjectQuery(projectProperites, project.value.id)
+  }
+
   return {
     projects,
     getProjects,
     getProject,
-    project
+    project,
+    updateProject
   }
 })

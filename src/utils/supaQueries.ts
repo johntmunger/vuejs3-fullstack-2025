@@ -33,6 +33,10 @@ supabase
 
 export type Project = QueryData<ReturnType<typeof projectQuery>>
 
+export const updateProjectQuery = (updatedProject = {}, id: number) => {
+  return supabase.from('projects').update(updatedProject).eq('id', id)
+}
+
 export const taskQuery = (id: string) => {
 return supabase
   .from('tasks')
