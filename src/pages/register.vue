@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { register } from '@/utils/supaAuth';
+import { register } from "@/utils/supaAuth";
 
 const formData = ref({
-  username: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
+  username: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
 });
 
 const router = useRouter();
 
 const signup = async () => {
   const isRegistered = await register(formData.value);
-  if (isRegistered) router.push('/');
+  if (isRegistered) router.push("/");
 };
 </script>
 
@@ -29,7 +29,9 @@ const signup = async () => {
       </CardHeader>
       <CardContent>
         <div class="flex flex-col gap-4 mb-4 justify-center items-center">
-          <Button variant="outline" class="w-full"> Register with Google </Button>
+          <Button variant="outline" class="w-full">
+            Register with Google
+          </Button>
           <Separator label="Or" />
         </div>
         <form class="grid gap-4" @submit.prevent="signup">
@@ -89,7 +91,9 @@ const signup = async () => {
           </div>
 
           <div class="grid gap-2">
-            <Label id="confirm_password" class="text-left">Confirm Password</Label>
+            <Label id="confirm_password" class="text-left"
+              >Confirm Password</Label
+            >
             <Input
               id="confirm_password"
               type="password"

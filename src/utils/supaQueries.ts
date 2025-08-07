@@ -1,24 +1,24 @@
-import { supabase } from '@/lib/supabaseClient';
-import type { QueryData } from '@supabase/supabase-js';
+import { supabase } from "@/lib/supabaseClient";
+import type { QueryData } from "@supabase/supabase-js";
 
-export const tasksWithProjectsQuery = supabase.from('tasks').select(`
+export const tasksWithProjectsQuery = supabase.from("tasks").select(`
   *,
   projects (
     id,
     name,
     slug
   )
-`)
-export type TasksWithProjects = QueryData<typeof tasksWithProjectsQuery>
+`);
+export type TasksWithProjects = QueryData<typeof tasksWithProjectsQuery>;
 
-export const projectsQuery = supabase.from('projects').select()
-export type Projects = QueryData<typeof projectsQuery>
+export const projectsQuery = supabase.from("projects").select();
+export type Projects = QueryData<typeof projectsQuery>;
 
 export const projectQuery = (slug: string) =>
-supabase
-  .from('projects')
-  .select(
-    `
+  supabase
+    .from("projects")
+    .select(
+      `
  *,
  tasks (
   id,
@@ -26,54 +26,53 @@ supabase
   status,
   due_date
  )
-`
-  )
-  .eq('slug', slug)
-  .single()
+`,
+    )
+    .eq("slug", slug)
+    .single();
 
-export type Project = QueryData<ReturnType<typeof projectQuery>>
+export type Project = QueryData<ReturnType<typeof projectQuery>>;
 
 export const updateProjectQuery = (updatedProject = {}, id: number) => {
-  return supabase.from('projects').update(updatedProject).eq('id', id)
-}
+  // return supabase.from('projects').update(updatedProject).match({ id: id }) suggested docs
+  return supabase.from("projects").update(updatedProject).eq("id", id);
+};
 
 export const taskQuery = (id: string) => {
-return supabase
-  .from('tasks')
-  .select(
-    `
+  return supabase
+    .from("tasks")
+    .select(
+      `
     *,
     projects (
       id,
       name,
       slug
     )
-  `
-  )
-  .eq('id', id)
-  .single()
-}
-export type Task = QueryData<ReturnType<typeof taskQuery>>
+  `,
+    )
+    .eq("id", id)
+    .single();
+};
+export type Task = QueryData<ReturnType<typeof taskQuery>>;
 
 export const profileQuery = ({
-column,
-value
+  column,
+  value,
 }: {
-column: string
-value: string
+  column: string;
+  value: string;
 }) => {
-return supabase.from('profiles').select().eq(column, value).single()
-}
+  return supabase.from("profiles").select().eq(column, value).single();
+};
 
-export const groupedProfilesQuery = (userIds: string[]) =>
-  { return supabase
-    .from('profiles')
-    .select('username, avatar_url, id, full_name')
-    .in('id', userIds)
-  }
-export type Collabs = QueryData<ReturnType<typeof groupedProfilesQuery>>
-
-
+export const groupedProfilesQuery = (userIds: string[]) => {
+  return supabase
+    .from("profiles")
+    .select("username, avatar_url, id, full_name")
+    .in("id", userIds);
+};
+export type Collabs = QueryData<ReturnType<typeof groupedProfilesQuery>>;
 
 // export const groupedProfilesQuery: (userIds: string[]) => Promise<void> = async () => {
 //   const { data, error } = await supabase.from('profiles')

@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import type { DropdownMenuContentEmits, DropdownMenuContentProps } from 'radix-vue';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
-import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'radix-vue';
-import { computed } from 'vue';
+import type {
+  DropdownMenuContentEmits,
+  DropdownMenuContentProps,
+} from "radix-vue";
+import type { HTMLAttributes } from "vue";
+import { cn } from "@/lib/utils";
+import {
+  DropdownMenuContent,
+  DropdownMenuPortal,
+  useForwardPropsEmits,
+} from "radix-vue";
+import { computed } from "vue";
 
 const props = withDefaults(
-  defineProps<DropdownMenuContentProps & { class?: HTMLAttributes['class'] }>(),
+  defineProps<DropdownMenuContentProps & { class?: HTMLAttributes["class"] }>(),
   {
     sideOffset: 4,
   },

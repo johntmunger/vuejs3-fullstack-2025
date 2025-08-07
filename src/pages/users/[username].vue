@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { useErrorStore } from '@/stores/error';
-import { profileQuery } from '@/utils/supaQueries';
-import type { Tables } from 'database/types';
+import { useErrorStore } from "@/stores/error";
+import { profileQuery } from "@/utils/supaQueries";
+import type { Tables } from "database/types";
 
-const { username } = useRoute('/users/[username]').params
+const { username } = useRoute("/users/[username]").params;
 
-const profile = ref<Tables<'profiles'> | null>(null)
+const profile = ref<Tables<"profiles"> | null>(null);
 const getTasks = async () => {
   const { data, error, status } = await profileQuery({
-    column: 'username',
-    value: username
-  })
+    column: "username",
+    value: username,
+  });
 
-  if (error) useErrorStore().setError({ error, customCode: status })
+  if (error) useErrorStore().setError({ error, customCode: status });
 
-  profile.value = data
-}
+  profile.value = data;
+};
 
-await getTasks()
+await getTasks();
 </script>
 
 <template>

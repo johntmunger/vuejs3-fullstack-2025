@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { useErrorStore } from '@/stores/error';
-import { usePageStore } from '@/stores/page';
-import { taskQuery } from '@/utils/supaQueries';
-import type { Task } from '@/utils/supaQueries';
+import { useErrorStore } from "@/stores/error";
+import { usePageStore } from "@/stores/page";
+import { taskQuery } from "@/utils/supaQueries";
+import type { Task } from "@/utils/supaQueries";
 
-const route = useRoute('/tasks/[id]');
+const route = useRoute("/tasks/[id]");
 
 const task = ref<Task | null>(null);
 
 watch(
   () => task.value?.name,
   () => {
-    usePageStore().pageData.title = `Task: ${task.value?.name || ''}`;
+    usePageStore().pageData.title = `Task: ${task.value?.name || ""}`;
   },
 );
 
@@ -60,7 +60,10 @@ await getTask();
             v-for="collab in task.collaborators"
             :key="collab"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              to=""
+            >
               <AvatarImage src="" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>

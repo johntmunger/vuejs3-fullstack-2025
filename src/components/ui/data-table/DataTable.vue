@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="TData, TValue">
-import type { ColumnDef } from '@tanstack/vue-table';
-import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
+import type { ColumnDef } from "@tanstack/vue-table";
+import { FlexRender, getCoreRowModel, useVueTable } from "@tanstack/vue-table";
 
 import {
   Table,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[];
@@ -31,7 +31,10 @@ const table = useVueTable({
   <div class="border rounded-md">
     <Table>
       <TableHeader>
-        <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
+        <TableRow
+          v-for="headerGroup in table.getHeaderGroups()"
+          :key="headerGroup.id"
+        >
           <TableHead v-for="header in headerGroup.headers" :key="header.id">
             <FlexRender
               v-if="!header.isPlaceholder"
@@ -49,13 +52,18 @@ const table = useVueTable({
             :data-state="row.getIsSelected() ? 'selected' : undefined"
           >
             <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
-              <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+              <FlexRender
+                :render="cell.column.columnDef.cell"
+                :props="cell.getContext()"
+              />
             </TableCell>
           </TableRow>
         </template>
         <template v-else>
           <TableRow>
-            <TableCell :colspan="columns.length" class="h-24 text-center"> No results. </TableCell>
+            <TableCell :colspan="columns.length" class="h-24 text-center">
+              No results.
+            </TableCell>
           </TableRow>
         </template>
       </TableBody>

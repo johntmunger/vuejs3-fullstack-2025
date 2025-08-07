@@ -1,6 +1,6 @@
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from "@/lib/supabaseClient";
 // import { useAuthStore } from '@/stores/auth';
-import type { LoginForm, RegisterForm } from '@/types/AuthForm';
+import type { LoginForm, RegisterForm } from "@/types/AuthForm";
 
 // const authStore = useAuthStore()
 
@@ -13,13 +13,13 @@ export const register = async (formData: RegisterForm) => {
   if (error) return console.log(error);
 
   if (data.user) {
-    const { error } = await supabase.from('profiles').insert({
+    const { error } = await supabase.from("profiles").insert({
       id: data.user.id,
       username: formData.username,
-      full_name: formData.firstName.concat(' ', formData.lastName),
+      full_name: formData.firstName.concat(" ", formData.lastName),
     });
 
-    if (error) return console.log('Profiles err: ', error);
+    if (error) return console.log("Profiles err: ", error);
   }
 
   // await authStore.setAuth(data.session)

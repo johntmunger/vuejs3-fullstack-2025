@@ -1,12 +1,12 @@
-import { supabase } from '@/lib/supabaseClient';
-import { profileQuery } from '@/utils/supaQueries';
-import type { Session, User } from '@supabase/supabase-js';
-import type { Tables } from 'database/types';
-import { acceptHMRUpdate, defineStore } from 'pinia';
+import { supabase } from "@/lib/supabaseClient";
+import { profileQuery } from "@/utils/supaQueries";
+import type { Session, User } from "@supabase/supabase-js";
+import type { Tables } from "database/types";
+import { acceptHMRUpdate, defineStore } from "pinia";
 
-export const useAuthStore = defineStore('auth-store', () => {
+export const useAuthStore = defineStore("auth-store", () => {
   const user = ref<null | User>(null);
-  const profile = ref<null | Tables<'profiles'>>(null);
+  const profile = ref<null | Tables<"profiles">>(null);
   const isTrackingAuthChanges = ref(false);
 
   const setProfile = async () => {
@@ -17,8 +17,8 @@ export const useAuthStore = defineStore('auth-store', () => {
 
     if (!profile.value || profile.value.id !== user.value.id) {
       const { data } = await profileQuery({
-        column: 'id',
-        value: user.value.id
+        column: "id",
+        value: user.value.id,
       });
 
       profile.value = data || null;

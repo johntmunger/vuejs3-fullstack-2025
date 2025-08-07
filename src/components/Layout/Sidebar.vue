@@ -1,50 +1,50 @@
 <script setup lang="ts">
-import SidebarLinks from './SidebarLinks.vue';
-import { Button } from '@/components/ui/button';
+import SidebarLinks from "./SidebarLinks.vue";
+import { Button } from "@/components/ui/button";
 
 const links = [
   {
-    title: 'Dashboard',
-    to: '/',
-    icon: 'lucide:house',
+    title: "Dashboard",
+    to: "/",
+    icon: "lucide:house",
   },
   {
-    title: 'Projects',
-    to: '/projects',
-    icon: 'lucide:building-2',
+    title: "Projects",
+    to: "/projects",
+    icon: "lucide:building-2",
   },
   {
-    title: 'My Tasks',
-    to: '/tasks',
-    icon: 'lucide:badge-check',
+    title: "My Tasks",
+    to: "/tasks",
+    icon: "lucide:badge-check",
   },
 ];
 
 const accountLinks = [
   {
-    title: 'Profile',
-    to: '/profile',
-    icon: 'lucide:person-standing',
+    title: "Profile",
+    to: "/profile",
+    icon: "lucide:person-standing",
   },
   {
-    title: 'Settings',
-    to: '/settings',
-    icon: 'lucide:settings',
+    title: "Settings",
+    to: "/settings",
+    icon: "lucide:settings",
   },
   {
-    title: 'Sign Out',
-    icon: 'lucide:log-out',
+    title: "Sign Out",
+    icon: "lucide:log-out",
   },
 ];
 
 const router = useRouter();
 
 const executeAction = async (linkTitle: string) => {
-  if (linkTitle === 'Sign Out') {
-    const { logout } = await import('@/utils/supaAuth.ts');
+  if (linkTitle === "Sign Out") {
+    const { logout } = await import("@/utils/supaAuth.ts");
     const isLoggedOut = await logout();
 
-    if (isLoggedOut) router.push('/login');
+    if (isLoggedOut) router.push("/login");
   }
 };
 </script>
@@ -53,7 +53,9 @@ const executeAction = async (linkTitle: string) => {
   <aside
     class="flex flex-col h-screen gap-2 border-r fixed bg-muted/40 lg:w-52 w-16 transition-[width]"
   >
-    <div class="flex h-16 items-center border-b px-2 lg:px-4 shrink-0 gap-1 justify-between">
+    <div
+      class="flex h-16 items-center border-b px-2 lg:px-4 shrink-0 gap-1 justify-between"
+    >
       <Button variant="outline" size="icon" class="w-8 h-8">
         <iconify-icon icon="lucide:menu"></iconify-icon>
       </Button>

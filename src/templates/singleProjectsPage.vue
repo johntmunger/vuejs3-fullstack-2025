@@ -7,11 +7,12 @@
     <TableRow>
       <TableHead> Description </TableHead>
       <TableCell>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iure qui tempora ex nihil, ab
-        reprehenderit dolorem sunt veritatis perferendis? Repudiandae quis velit quasi ab natus quia
-        ratione voluptas deserunt labore sed distinctio nam fuga fugit vero voluptates placeat
-        aperiam, saepe excepturi eos harum consectetur doloremque perspiciatis nesciunt! Incidunt,
-        modi.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad iure qui
+        tempora ex nihil, ab reprehenderit dolorem sunt veritatis perferendis?
+        Repudiandae quis velit quasi ab natus quia ratione voluptas deserunt
+        labore sed distinctio nam fuga fugit vero voluptates placeat aperiam,
+        saepe excepturi eos harum consectetur doloremque perspiciatis nesciunt!
+        Incidunt, modi.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -27,7 +28,10 @@
             v-for="n in 5"
             :key="n"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              to=""
+            >
               <AvatarImage src="" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>

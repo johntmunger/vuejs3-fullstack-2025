@@ -18,7 +18,9 @@ defineProps<{
     <p v-if="hint">{{ hint }}</p>
     <p v-if="details">{{ details }}</p>
     <div class="error-footer">
-      <p class="error-footer__text">You'll find lots to explore on the home page.</p>
+      <p class="error-footer__text">
+        You'll find lots to explore on the home page.
+      </p>
       <RouterLink to="/">
         <Button class="max-w-36"> Back to homepage </Button>
       </RouterLink>

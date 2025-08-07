@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useErrorStore } from '@/stores/error';
+import { useErrorStore } from "@/stores/error";
 
 const router = useRouter();
 
@@ -7,19 +7,19 @@ const errorStore = useErrorStore();
 
 const error = ref(errorStore.activeError);
 
-const message = ref('');
+const message = ref("");
 const customCode = ref(0);
-const details = ref('');
-const code = ref('');
-const hint = ref('');
+const details = ref("");
+const code = ref("");
+const hint = ref("");
 const statusCode = ref(0);
 
-if (error.value && !('code' in error.value)) {
+if (error.value && !("code" in error.value)) {
   message.value = error.value.message;
   customCode.value = error.value.customCode ?? 0;
 }
 
-if (error.value && 'code' in error.value) {
+if (error.value && "code" in error.value) {
   message.value = error.value.message;
   details.value = error.value.details;
   hint.value = error.value.hint;
@@ -28,8 +28,8 @@ if (error.value && 'code' in error.value) {
 }
 
 const ErrorTemplate = import.meta.env.DEV
-  ? defineAsyncComponent(() => import('./AppErrorDevelopment.vue'))
-  : defineAsyncComponent(() => import('./AppErrorProduction.vue'));
+  ? defineAsyncComponent(() => import("./AppErrorDevelopment.vue"))
+  : defineAsyncComponent(() => import("./AppErrorProduction.vue"));
 
 router.afterEach(() => {
   errorStore.clearError();

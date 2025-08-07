@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import AuthLayout from '@/components/Layout/main/AuthLayout.vue';
-import { useErrorStore } from './stores/error';
-import { storeToRefs } from 'pinia';
-import { supabase } from './lib/supabaseClient';
-import { useAuthStore } from './stores/auth';
+import AuthLayout from "@/components/Layout/main/AuthLayout.vue";
+import { useErrorStore } from "./stores/error";
+import { storeToRefs } from "pinia";
+import { supabase } from "./lib/supabaseClient";
+import { useAuthStore } from "./stores/auth";
 
 const { activeError } = storeToRefs(useErrorStore());
 const errorStore = useErrorStore();

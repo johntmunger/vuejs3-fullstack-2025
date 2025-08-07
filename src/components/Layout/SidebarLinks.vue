@@ -14,7 +14,7 @@ const emits = defineEmits<{
 }>();
 
 const emitActionClicked = (linkTitle: string) => {
-  emits('actionClicked', linkTitle);
+  emits("actionClicked", linkTitle);
 };
 </script>
 
@@ -30,7 +30,11 @@ const emitActionClicked = (linkTitle: string) => {
       <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
     </RouterLink>
 
-    <div v-else class="nav-link cursor-pointer" @click="emitActionClicked(link.title)">
+    <div
+      v-else
+      class="nav-link cursor-pointer"
+      @click="emitActionClicked(link.title)"
+    >
       <iconify-icon :icon="link.icon"></iconify-icon>
       <span class="hidden lg:block text-nowrap">{{ link.title }}</span>
     </div>

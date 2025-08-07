@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { useProjectsStore } from '@/stores/loaders/projects';
-import { storeToRefs } from 'pinia';
-import { usePageStore } from '@/stores/page';
-import AppInPlaceEditText from '@/components/AppInPlaceEdit/AppInPlaceEditText.vue';
+import { useProjectsStore } from "@/stores/loaders/projects";
+import { storeToRefs } from "pinia";
+import { usePageStore } from "@/stores/page";
+import AppInPlaceEditText from "@/components/AppInPlaceEdit/AppInPlaceEditText.vue";
 
-const { slug } = useRoute('/projects/[slug]').params
+const { slug } = useRoute("/projects/[slug]").params;
 
-const projectsLoader = useProjectsStore()
-const {project} = storeToRefs(projectsLoader)
-const {getProject, updateProject} = projectsLoader
+const projectsLoader = useProjectsStore();
+const { project } = storeToRefs(projectsLoader);
+const { getProject, updateProject } = projectsLoader;
 
 watch(
   () => project.value?.name,
   () => {
-    usePageStore().pageData.title = `Project: ${project.value?.name || ''}`
-  }
-)
+    usePageStore().pageData.title = `Project: ${project.value?.name || ""}`;
+  },
+);
 
 await getProject(slug);
 </script>
@@ -25,14 +25,15 @@ await getProject(slug);
     <TableRow>
       <TableHead>Name: </TableHead>
 
-       <TableCell>
-        <AppInPlaceEditText v-model="project.name" @commit="updateProject"/> 
-       </TableCell>
-
+      <TableCell>
+        <AppInPlaceEditText v-model="project.name" @commit="updateProject" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Description: </TableHead>
-      <TableCell> {{ project.name }}: &nbsp; {{ project.description }} </TableCell>
+      <TableCell>
+        {{ project.name }}: &nbsp; {{ project.description }}
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Status: </TableHead>
@@ -48,7 +49,10 @@ await getProject(slug);
             v-for="collab in project.collaborators"
             :key="collab"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              to=""
+            >
               <AvatarImage src="" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
@@ -58,7 +62,10 @@ await getProject(slug);
     </TableRow>
   </Table>
 
-  <section v-if="project" class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow">
+  <section
+    v-if="project"
+    class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow"
+  >
     <div class="flex-1">
       <h2>Tasks</h2>
       <div class="table-container">
