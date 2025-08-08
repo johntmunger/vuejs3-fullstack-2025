@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useErrorStore } from "@/stores/error";
+import { usePageStore } from "@/stores/page";
 import { profileQuery } from "@/utils/supaQueries";
 import type { Tables } from "database/types";
 
 const { username } = useRoute("/users/[username]").params;
+
+usePageStore().pageData.title = ''
 
 const profile = ref<Tables<"profiles"> | null>(null);
 const getTasks = async () => {

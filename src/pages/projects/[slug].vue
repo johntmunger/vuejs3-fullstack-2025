@@ -3,57 +3,65 @@ import { useProjectsStore } from "@/stores/loaders/projects";
 import { storeToRefs } from "pinia";
 import { usePageStore } from "@/stores/page";
 import AppInPlaceEditText from "@/components/AppInPlaceEdit/AppInPlaceEditText.vue";
+import AppInPlaceEditStatus from "@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue";
+import { useCollabs } from "@/composables/collabs";
+import AppInPlaceEditTextarea from "@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue";
 
 const { slug } = useRoute("/projects/[slug]").params;
 
-const projectsLoader = useProjectsStore();
-const { project } = storeToRefs(projectsLoader);
-const { getProject, updateProject } = projectsLoader;
+const projectsLoader = useProjectsStore()
+const { project } = storeToRefs(projectsLoader)
+const { getProject, updateProject } = projectsLoader
 
 watch(
   () => project.value?.name,
   () => {
-    usePageStore().pageData.title = `Project: ${project.value?.name || ""}`;
-  },
-);
+    usePageStore().pageData.title = `Project: ${project.value?.name || ''}`
+  }
+)
 
-await getProject(slug);
+await getProject(slug)
+
+const { getProfilesByIds } = useCollabs();
+
+const collabs = project.value?.collaborators ? await getProfilesByIds(project.value.collaborators) : []
+
 </script>
 
 <template>
   <Table v-if="project">
     <TableRow>
-      <TableHead>Name: </TableHead>
-
+      <TableHead> Name </TableHead>
       <TableCell>
         <AppInPlaceEditText v-model="project.name" @commit="updateProject" />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableHead>Description: </TableHead>
+      <TableHead> Description </TableHead>
       <TableCell>
-        {{ project.name }}: &nbsp; {{ project.description }}
+        <AppInPlaceEditTextarea v-model="project.description" @commit="updateProject" />
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableHead>Status: </TableHead>
-      <TableCell>{{ project.status }}</TableCell>
+      <TableHead> Status </TableHead>
+      <TableCell>
+        <AppInPlaceEditStatus v-model="project.status" @commit="updateProject"/>
+      </TableCell>
     </TableRow>
     <TableRow>
-      <TableHead>Collaborators: </TableHead>
-      <!-- <TableCell>{{ project.collaborators }}  </TableCell> -->
+      <TableHead> Collaborators </TableHead>
       <TableCell>
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in project.collaborators"
-            :key="collab"
+            v-for="collab in collabs"
+            :key="collab.id"
           >
             <RouterLink
               class="w-full h-full flex items-center justify-center"
-              to=""
+              :to="{ name: '/users/[username]', params: {username: collab.username} }"
             >
-              <AvatarImage src="" alt="" />
+              <AvatarImage :src="collab.avatar_url || ''" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
@@ -79,9 +87,18 @@ await getProject(slug);
           </TableHeader>
           <TableBody>
             <TableRow v-for="task in project.tasks" :key="task.id">
-              <TableCell>Lorem ipsum dolor sit amet.</TableCell>
-              <TableCell> In-progress</TableCell>
-              <TableCell> 22/08/2024 </TableCell>
+              <TableCell class="p-0">
+                <RouterLink
+                  class="text-left block hover:bg-muted p-4"
+                  :to="{ name: '/tasks/[id]', params: { id: task.id } }"
+                >
+                  {{ task.name }}
+                </RouterLink>
+              </TableCell>
+              <TableCell>
+                <AppInPlaceEditStatus readonly :modelValue="task.status" />
+              </TableCell>
+              <TableCell> {{ task.due_date }} </TableCell>
             </TableRow>
           </TableBody>
         </Table>

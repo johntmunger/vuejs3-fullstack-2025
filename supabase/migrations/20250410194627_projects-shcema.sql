@@ -8,8 +8,8 @@ create table
     id bigint primary key generated always as identity not null,
     created_at timestamptz default now() not null,
     name text not null,
-    description text,
     slug text unique not null,
+    description text not null default '',
     status current_status default 'in-progress' not null,
     collaborators text array default array[]::varchar[] not null
   );
