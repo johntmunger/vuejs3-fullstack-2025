@@ -3,12 +3,15 @@ import { useCollabs } from "@/composables/collabs";
 import { useTasksStore } from "@/stores/loaders/tasks";
 import { usePageStore } from "@/stores/page";
 import { storeToRefs } from "pinia";
+import AppInPlaceEditText from "@/components/AppInPlaceEdit/AppInPlaceEditText.vue";
+import AppInPlaceEditTextarea from "@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue";
+import AppInPlaceEditStatus from "@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue";
 
 const { id } = useRoute("/tasks/[id]").params;
 
 const tasksLoader = useTasksStore()
 const { task } = storeToRefs(tasksLoader)
-const { getTask } = tasksLoader
+const { getTask, updateTask } = tasksLoader
 
 watch(
   () => task.value?.name,
@@ -28,11 +31,15 @@ const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.co
   <Table v-if="task">
     <TableRow>
       <TableHead>Name: </TableHead>
-      <TableCell>{{ task.name }}</TableCell>
+      <TableCell>
+        <AppInPlaceEditText v-model="task.name" @commit="updateTask" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Description: </TableHead>
-      <TableCell> {{ task.name }}: &nbsp; {{ task.description }} </TableCell>
+      <TableCell>
+        <AppInPlaceEditTextarea v-model="task.description" @commit="updateTask" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Assignee: </TableHead>
@@ -46,7 +53,9 @@ const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.co
     </TableRow>
     <TableRow>
       <TableHead>Status: </TableHead>
-      <TableCell>{{ task.status }}</TableCell>
+      <TableCell>
+        <AppInPlaceEditStatus v-model="task.status" @commit="updateTask"/>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Collaborators: </TableHead>
@@ -100,3 +109,17 @@ const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.co
     </TableRow>
   </Table>
 </template>
+
+<style>
+th {
+  @apply w-[100px];
+}
+
+h2 {
+  @apply mb-4 text-lg font-semibold w-fit;
+}
+
+.table-container {
+  @apply overflow-hidden overflow-y-auto rounded-md bg-slate-900 h-80;
+}
+</style>

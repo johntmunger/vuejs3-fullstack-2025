@@ -36,6 +36,10 @@ export const updateProjectQuery = (updatedProject = {}, id: number) => {
   return supabase.from('projects').update(updatedProject).eq('id', id)
 }
 
+export const updateTaskQuery = (updatedTask = {}, id: number) => {
+  return supabase.from('tasks').update(updatedTask).eq('id', id)
+}
+
 export const taskQuery = (id: string) => {
   return supabase
     .from('tasks')

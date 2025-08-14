@@ -3,9 +3,9 @@ import { useProjectsStore } from "@/stores/loaders/projects";
 import { storeToRefs } from "pinia";
 import { usePageStore } from "@/stores/page";
 import AppInPlaceEditText from "@/components/AppInPlaceEdit/AppInPlaceEditText.vue";
+import AppInPlaceEditTextarea from "@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue";
 import AppInPlaceEditStatus from "@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue";
 import { useCollabs } from "@/composables/collabs";
-import AppInPlaceEditTextarea from "@/components/AppInPlaceEdit/AppInPlaceEditTextarea.vue";
 
 const { slug } = useRoute("/projects/[slug]").params;
 
