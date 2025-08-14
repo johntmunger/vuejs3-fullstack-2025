@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import { useErrorStore } from "@/stores/error";
-import { useProjectsStore } from "@/stores/loaders/projects";
 import { useTasksStore } from "@/stores/loaders/tasks";
 import { usePageStore } from "@/stores/page";
-import { taskQuery } from "@/utils/supaQueries";
-import type { Task } from "@/utils/supaQueries";
 import { storeToRefs } from "pinia";
 
-const route = useRoute("/tasks/[id]");
-
-// const task = ref<Task | null>(null);
+const { id } = useRoute("/tasks/[id]").params;
 
 const tasksLoader = useTasksStore()
 const { task } = storeToRefs(tasksLoader)
@@ -18,19 +12,11 @@ const { getTask } = tasksLoader
 watch(
   () => task.value?.name,
   () => {
-    usePageStore().pageData.title = `Task: ${task.value?.name || ""}`;
-  },
-);
+    usePageStore().pageData.title = `Task: ${task.value?.name || ''}`
+  }
+)
 
-const getTask = async () => {
-  const { data, error, status } = await taskQuery(route.params.id);
-
-  if (error) useErrorStore().setError({ error, customCode: status });
-
-  task.value = data;
-};
-
-await getTask(id);
+await getTask(id)
 </script>
 
 <template>
