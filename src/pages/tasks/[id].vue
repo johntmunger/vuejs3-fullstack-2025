@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useCollabs } from "@/composables/collabs";
 import { useTasksStore } from "@/stores/loaders/tasks";
 import { usePageStore } from "@/stores/page";
 import { storeToRefs } from "pinia";
@@ -16,7 +17,11 @@ watch(
   }
 )
 
-await getTask(id)
+await getTask(id);
+
+const { getProfilesByIds } = useCollabs();
+
+const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.collaborators) : []
 </script>
 
 <template>
@@ -45,19 +50,18 @@ await getTask(id)
     </TableRow>
     <TableRow>
       <TableHead>Collaborators: </TableHead>
-      <!-- <TableCell>{{ project.collaborators }}  </TableCell> -->
       <TableCell>
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in task.collaborators"
-            :key="collab"
+            v-for="collab in collabs"
+            :key="collab.id"
           >
             <RouterLink
               class="w-full h-full flex items-center justify-center"
-              to=""
+              :to="{ name: '/users/[username]', params: {username: collab.username} }"
             >
-              <AvatarImage src="" alt="" />
+              <AvatarImage :src="collab.avatar_url || ''" alt="" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
