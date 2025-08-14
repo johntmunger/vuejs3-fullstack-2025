@@ -1,3 +1,5 @@
+import type { AuthError } from "@supabase/supabase-js";
+
 export const useFormErrors = () => {
   const serverError = ref("");
 

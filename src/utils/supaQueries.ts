@@ -30,7 +30,6 @@ export const projectQuery = (slug: string) =>
     )
     .eq('slug', slug)
     .single()
-
 export type Project = QueryData<ReturnType<typeof projectQuery>>
 
 export const updateProjectQuery = (updatedProject = {}, id: number) => {

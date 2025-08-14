@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { useErrorStore } from "@/stores/error";
+import { useProjectsStore } from "@/stores/loaders/projects";
+import { useTasksStore } from "@/stores/loaders/tasks";
 import { usePageStore } from "@/stores/page";
 import { taskQuery } from "@/utils/supaQueries";
 import type { Task } from "@/utils/supaQueries";
+import { storeToRefs } from "pinia";
 
 const route = useRoute("/tasks/[id]");
 
-const task = ref<Task | null>(null);
+// const task = ref<Task | null>(null);
+
+const tasksLoader = useTasksStore()
+const { task } = storeToRefs(tasksLoader)
+const { getTask } = tasksLoader
 
 watch(
   () => task.value?.name,
@@ -23,7 +30,7 @@ const getTask = async () => {
   task.value = data;
 };
 
-await getTask();
+await getTask(id);
 </script>
 
 <template>
