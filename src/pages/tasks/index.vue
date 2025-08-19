@@ -8,7 +8,7 @@ import { storeToRefs } from "pinia";
 
 usePageStore().pageData.title = "My Tasks";
 
-const tasksLoader = useTasksStore()
+const tasksLoader = useTasksStore();
 const { tasks } = storeToRefs(tasksLoader);
 const { getTasks } = tasksLoader;
 

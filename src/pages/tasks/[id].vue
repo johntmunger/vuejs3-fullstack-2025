@@ -9,22 +9,24 @@ import AppInPlaceEditStatus from "@/components/AppInPlaceEdit/AppInPlaceEditStat
 
 const { id } = useRoute("/tasks/[id]").params;
 
-const tasksLoader = useTasksStore()
-const { task } = storeToRefs(tasksLoader)
-const { getTask, updateTask } = tasksLoader
+const tasksLoader = useTasksStore();
+const { task } = storeToRefs(tasksLoader);
+const { getTask, updateTask } = tasksLoader;
 
 watch(
   () => task.value?.name,
   () => {
-    usePageStore().pageData.title = `Task: ${task.value?.name || ''}`
-  }
-)
+    usePageStore().pageData.title = `Task: ${task.value?.name || ""}`;
+  },
+);
 
 await getTask(id);
 
 const { getProfilesByIds } = useCollabs();
 
-const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.collaborators) : []
+const collabs = task.value?.collaborators
+  ? await getProfilesByIds(task.value.collaborators)
+  : [];
 </script>
 
 <template>
@@ -38,7 +40,10 @@ const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.co
     <TableRow>
       <TableHead>Description: </TableHead>
       <TableCell>
-        <AppInPlaceEditTextarea v-model="task.description" @commit="updateTask" />
+        <AppInPlaceEditTextarea
+          v-model="task.description"
+          @commit="updateTask"
+        />
       </TableCell>
     </TableRow>
     <TableRow>
@@ -54,7 +59,7 @@ const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.co
     <TableRow>
       <TableHead>Status: </TableHead>
       <TableCell>
-        <AppInPlaceEditStatus v-model="task.status" @commit="updateTask"/>
+        <AppInPlaceEditStatus v-model="task.status" @commit="updateTask" />
       </TableCell>
     </TableRow>
     <TableRow>
@@ -68,7 +73,10 @@ const collabs = task.value?.collaborators ? await getProfilesByIds(task.value.co
           >
             <RouterLink
               class="w-full h-full flex items-center justify-center"
-              :to="{ name: '/users/[username]', params: {username: collab.username} }"
+              :to="{
+                name: '/users/[username]',
+                params: { username: collab.username },
+              }"
             >
               <AvatarImage :src="collab.avatar_url || ''" alt="" />
               <AvatarFallback> </AvatarFallback>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const value = defineModel()
+const value = defineModel();
 
-defineEmits(['commit'])
+defineEmits(["commit"]);
 </script>
 
 <template>

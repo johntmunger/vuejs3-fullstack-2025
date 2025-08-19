@@ -1,23 +1,27 @@
-<script setup lang='ts'>
-const value = defineModel<'in-progress' | 'completed'>()
+<script setup lang="ts">
+const value = defineModel<"in-progress" | "completed">();
 
-const emit = defineEmits(['commit'])
+const emit = defineEmits(["commit"]);
 
 const { readonly = false } = defineProps<{
-    readonly?:boolean
-}>()
+  readonly?: boolean;
+}>();
 
 const toggleValue = () => {
-    if (readonly) return
+  if (readonly) return;
 
-    value.value = value.value === 'completed' ? 'in-progress' : 'completed'
-    emit('commit')
-}
+  value.value = value.value === "completed" ? "in-progress" : "completed";
+  emit("commit");
+};
 </script>
 
 <template>
-    <div class="text-2xl cursor-pointer" @click="toggleValue">
-        <iconify-icon v-if="value === 'completed'" icon="lucide:circle-check" class="text-green-500"/>
-        <iconify-icon v-else icon="lucide:circle-dot" class="text-gray-500" />
-    </div>
+  <div class="text-2xl cursor-pointer" @click="toggleValue">
+    <iconify-icon
+      v-if="value === 'completed'"
+      icon="lucide:circle-check"
+      class="text-green-500"
+    />
+    <iconify-icon v-else icon="lucide:circle-dot" class="text-gray-500" />
+  </div>
 </template>
