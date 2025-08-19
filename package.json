@@ -20,6 +20,7 @@
     "supabase:types": "npx supabase gen types typescript --project-id tfhcrcbkkliqfjdoonct --schema public > database/types.ts"
   },
   "dependencies": {
+    "@formkit/vue": "^1.6.9",
     "@supabase/supabase-js": "^2.49.4",
     "@tanstack/vue-table": "^8.21.3",
     "@vueuse/core": "^13.1.0",

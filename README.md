@@ -2,7 +2,13 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
-## **Important - for resetting the database
+## Important - for using Shad-cn components with current Tailwind release
+For the current setup, use `^0.11.4` for adding components. For example do you not use `shadcn-vue@latest` use instead
+```sh
+npx shadcn-vue@^0.11.4 add input
+```
+
+## Important - for resetting the database
 Use this syntax to reset the server currently, instead of `db:reset`
 ```sh
 npx supabase@beta db reset --linked
