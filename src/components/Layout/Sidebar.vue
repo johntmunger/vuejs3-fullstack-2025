@@ -2,6 +2,7 @@
 import { useMenu } from "@/composables/menu";
 import SidebarLinks from "./SidebarLinks.vue";
 import { Button } from "@/components/ui/button";
+import { useWindowSize } from "@vueuse/core";
 
 const links = [
   {
@@ -52,6 +53,15 @@ const executeAction = async (linkTitle: string) => {
 defineEmits(['taskClicked'])
 
 const {menuOpen, toggleMenu} = useMenu()
+
+const windowWidth = useWindowSize().width
+watchEffect(() => {
+  if(windowWidth.value > 1024) {
+    menuOpen.value = true
+  } else {
+    menuOpen.value = false
+  }
+})
 </script>
 
 <template>

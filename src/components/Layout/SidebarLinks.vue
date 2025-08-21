@@ -7,7 +7,7 @@ interface LinkProp {
   icon: string;
 }
 
-const props = defineProps<{
+defineProps<{
   links: LinkProp[];
 }>();
 
