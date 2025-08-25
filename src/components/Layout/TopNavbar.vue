@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Input from "@/components/ui/input/Input.vue";
+import { useDark, useToggle } from '@vueuse/core'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +11,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+const isDark = useDark();
+const toggleDark = useToggle(isDark);
 </script>
 
 <template>
@@ -26,20 +31,31 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
         placeholder="Search ..."
       />
     </form>
-    <DropdownMenu>
-      <DropdownMenuTrigger>
-        <Avatar>
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+
+    <div class="flex justify-center items-center gap-1">
+      <Button @click="toggleDark()" class="w-8 h-8">
+        <Transition name="scale" mode="out-in">
+          <iconify-icon v-if="isDark" icon="lucide:sun"></iconify-icon>
+          <iconify-icon v-else icon="lucide:moon"></iconify-icon>
+        </Transition>
+      </Button>
+      <div class="w-8">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar>
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+  </div>
   </nav>
 </template>
