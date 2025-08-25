@@ -30,6 +30,7 @@ const collabs = project.value?.collaborators
 </script>
 
 <template>
+  <div> 
   <Table v-if="project">
     <TableRow>
       <TableHead> Name </TableHead>
@@ -79,7 +80,7 @@ const collabs = project.value?.collaborators
       </TableCell>
     </TableRow>
   </Table>
-
+</div>
   <section
     v-if="project"
     class="mt-10 flex flex-col md:flex-row gap-5 justify-between grow"
@@ -139,7 +140,7 @@ const collabs = project.value?.collaborators
   </section>
 </template>
 
-<style>
+<style scoped>
 th {
   @apply w-[100px];
 }
