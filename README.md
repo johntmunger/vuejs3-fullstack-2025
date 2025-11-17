@@ -1,14 +1,14 @@
 # Vuejs 3 Masterclass 2025
 
-- Single-page application with Shadcn components and Tailwind CSS. 
+Single-page application with Shadcn components and Tailwind CSS. 
 
-For the current setup, use `^0.11.4` for adding components. For example do you not use `shadcn-vue@latest` use instead
+Current local development setup  `^0.11.4` for adding components. For this demo, use the Shadcn `0.11.4` library
 ```sh
 npx shadcn-vue@^0.11.4 add input
 ```
 
-## Important - for resetting the database
-Use this syntax to reset the server currently, instead of `db:reset`
+## Important to reset the database with Supabase
+Use this syntax to reset the server currently
 ```sh
 npx supabase@beta db reset --linked
 ```
